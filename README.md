@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Blue Proton Initiative</title>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
 <style>
@@ -90,15 +90,22 @@
   }
 
   .atom-wrapper {
-    margin-bottom: 40px;
-    position: relative;
+    position: fixed;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    pointer-events: none;
+    will-change: transform, opacity;
   }
 
-  /* SVG atom logo — redrawn in code to match BPI style */
+  /* SVG atom logo */
   .atom-svg {
     width: 80px; height: 80px;
-    transition: transform 0.1s linear;
   }
+
+  /* spacer so hero text doesn't sit under the atom */
+  .atom-spacer { height: 140px; }
 
   h1 {
     font-family: 'DM Sans', sans-serif;
@@ -565,6 +572,7 @@
     </svg>
   </div>
 
+  <div class="atom-spacer"></div>
   <h1>Blue Proton</h1>
   <p class="hero-sub">A student-led STEM research group.</p>
   <p class="hero-sub">We build real things from scratch.</p>
@@ -748,24 +756,30 @@
     navbar.classList.toggle('scrolled', window.scrollY > 20);
   });
 
-  // Atom: rotate on scroll, fade out
+  // Atom: fixed position, falls down + rotates + fades on scroll
   const atom = document.getElementById('atomLogo');
   const atomWrapper = document.querySelector('.atom-wrapper');
-  let angle = 0;
+  const atomStartTop = 120; // initial top px
+  let rotAngle = 0;
 
-  window.addEventListener('scroll', () => {
+  function updateAtom() {
     const scrollY = window.scrollY;
-    const heroHeight = window.innerHeight;
+    const fadeDistance = window.innerHeight * 0.6;
 
+    // Move down proportionally to scroll
+    const newTop = atomStartTop + scrollY * 0.8;
     // Rotate
-    angle = scrollY * 0.4;
-    atom.style.transform = `rotate(${angle}deg)`;
+    rotAngle = scrollY * 0.5;
+    // Fade out
+    const opacity = Math.max(0, 1 - scrollY / fadeDistance);
 
-    // Fade + move down
-    const progress = Math.min(scrollY / (heroHeight * 0.5), 1);
-    atomWrapper.style.opacity = 1 - progress;
-    atomWrapper.style.transform = `translateY(${progress * 60}px)`;
-  });
+    atomWrapper.style.top = newTop + 'px';
+    atomWrapper.style.opacity = opacity;
+    atom.style.transform = `rotate(${rotAngle}deg)`;
+  }
+
+  window.addEventListener('scroll', updateAtom, { passive: true });
+  updateAtom();
 
   // Reveal on scroll
   const reveals = document.querySelectorAll('.reveal');

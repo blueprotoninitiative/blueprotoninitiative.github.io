@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'><ellipse cx='40' cy='40' rx='36' ry='14' stroke='%231a6fd4' stroke-width='2.5' fill='none'/><ellipse cx='40' cy='40' rx='36' ry='14' stroke='%231a6fd4' stroke-width='2.5' fill='none' transform='rotate(60 40 40)'/><ellipse cx='40' cy='40' rx='36' ry='14' stroke='%231a6fd4' stroke-width='2.5' fill='none' transform='rotate(120 40 40)'/><circle cx='40' cy='40' r='6' fill='%231a6fd4'/></svg>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Contact — Blue Proton Initiative</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1a6fd4;
+    --text: #0a0a0a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --bg: #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; min-height: 100vh; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 56px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    transition: padding 0.3s;
+  }
+  nav.scrolled { padding: 14px 56px; }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 15px; letter-spacing: -0.3px;
+    color: var(--text); text-decoration: none;
+  }
+  .nav-logo svg { width: 28px; height: 28px; color: var(--blue); flex-shrink: 0; }
+
+  .nav-back {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--muted); text-decoration: none;
+    transition: color 0.2s; font-weight: 400;
+  }
+  .nav-back:hover { color: var(--text); }
+  .nav-back svg { width: 14px; height: 14px; }
+
+  /* ── LAYOUT ── */
+  .page-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+  }
+
+  /* ── LEFT PANEL ── */
+  .left-panel {
+    background: var(--text);
+    color: white;
+    padding: 160px 72px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .left-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+
+  .left-content { position: relative; z-index: 1; }
+
+  .left-eyebrow {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    font-weight: 500;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.1s forwards;
+  }
+
+  .left-title {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: -3px;
+    line-height: 0.95;
+    color: white;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.3s forwards;
+  }
+
+  .left-desc {
+    font-size: 16px;
+    color: rgba(255,255,255,0.45);
+    font-weight: 300;
+    line-height: 1.75;
+    max-width: 340px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+
+  .left-links {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.7s forwards;
+  }
+
+  .left-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+    font-weight: 400;
+  }
+  .left-link:hover { color: rgba(255,255,255,0.8); }
+  .left-link svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+  .left-motto {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: rgba(255,255,255,0.2);
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.9s forwards;
+  }
+
+  /* ── RIGHT PANEL ── */
+  .right-panel {
+    padding: 140px 72px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .form-title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.2s forwards;
+  }
+
+  .form-subtitle {
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 300;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.35s forwards;
+  }
+
+  /* ── FORM ── */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+
+  .form-label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--text);
+    text-transform: none;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    width: 100%;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    font-weight: 400;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(26,111,212,0.1);
+  }
+  .form-input::placeholder,
+  .form-textarea::placeholder { color: #c4c9d2; }
+
+  .form-select {
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+
+  .form-textarea { resize: vertical; min-height: 140px; line-height: 1.6; }
+
+  .form-submit {
+    width: 100%;
+    background: var(--text);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 16px 28px;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: -0.2px;
+    transition: opacity 0.2s, transform 0.2s;
+    margin-top: 8px;
+  }
+  .form-submit:hover { opacity: 0.85; transform: translateY(-1px); }
+  .form-submit:active { transform: scale(0.99); }
+
+  .form-footer-note {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 300;
+    margin-top: 16px;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  /* ── SUCCESS STATE ── */
+  .success-state {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 48px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 16px;
+    margin-top: 24px;
+  }
+  .success-state.visible { display: flex; }
+  .success-icon {
+    width: 48px; height: 48px;
+    background: #dcfce7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .success-icon svg { width: 22px; height: 22px; color: #16a34a; }
+  .success-state h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; }
+  .success-state p { font-size: 14px; color: var(--muted); line-height: 1.65; font-weight: 300; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text);
+    color: rgba(255,255,255,0.25);
+    padding: 24px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 960px) {
+    .page-wrapper { grid-template-columns: 1fr; }
+    .left-panel { position: relative; height: auto; padding: 120px 32px 60px; }
+    .right-panel { padding: 60px 32px 80px; }
+    nav { padding: 16px 24px; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .left-title { letter-spacing: -2px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5">
+      <ellipse cx="14" cy="14" rx="12" ry="5" transform="rotate(0 14 14)"/>
+      <ellipse cx="14" cy="14" rx="12" ry="5" transform="rotate(60 14 14)"/>
+      <ellipse cx="14" cy="14" rx="12" ry="5" transform="rotate(120 14 14)"/>
+      <circle cx="14" cy="14" r="2" fill="currentColor" stroke="none"/>
+    </svg>
+    Blue Proton
+  </a>
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back to home
+  </a>
+</nav>
+
+<div class="page-wrapper">
+
+  <!-- LEFT -->
+  <div class="left-panel">
+    <div class="left-content">
+      <p class="left-eyebrow">Blue Proton Initiative</p>
+      <h1 class="left-title">Let's work<br>together.</h1>
+      <p class="left-desc">
+        We are a student research group based in Forlì, Italy. We are always open to collaborations, partnerships, and conversations with people who share our drive to build real things.
+      </p>
+    </div>
+    <div class="left-links">
+      <a href="mailto:blueprotoninitiative@gmail.com" class="left-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+        blueprotoninitiative@gmail.com
+      </a>
+      <a href="https://www.instagram.com/blueproton_initiative" target="_blank" class="left-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        @blueproton_initiative
+      </a>
+      <a href="https://www.youtube.com" target="_blank" class="left-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"/><path d="M19.5 12c0 7.5-7.5 9-7.5 9S4.5 19.5 4.5 12c0-7.5 7.5-9 7.5-9s7.5 1.5 7.5 9z"/></svg>
+        YouTube
+      </a>
+    </div>
+    <p class="left-motto">"dreams never freeze, neither at -70°C"</p>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right-panel">
+    <h2 class="form-title">Send us a message</h2>
+    <p class="form-subtitle">We'll get back to you as soon as we can.</p>
+
+    <!--
+      FORMSPREE SETUP:
+      Replace "YOUR_FORM_ID" below with your actual Formspree endpoint.
+      Steps: 1) Go to formspree.io  2) Create account  3) New form
+      4) Copy your endpoint (looks like: https://formspree.io/f/xabcdefg)
+      5) Replace action="https://formspree.io/f/YOUR_FORM_ID" below
+    -->
+    <form
+      class="contact-form"
+      id="contactForm"
+      action="https://formspree.io/f/YOUR_FORM_ID"
+      method="POST"
+    >
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="name">Full name</label>
+          <input class="form-input" type="text" id="name" name="name" placeholder="Your name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="email">Email address</label>
+          <input class="form-input" type="email" id="email" name="email" placeholder="you@example.com" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="type">Type of collaboration</label>
+        <select class="form-select" id="type" name="collaboration_type" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="research">Research collaboration</option>
+          <option value="hardware">Hardware / component partnership</option>
+          <option value="agriculture">Agricultural application</option>
+          <option value="sponsorship">Sponsorship</option>
+          <option value="media">Media / press</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="message">Message</label>
+        <textarea class="form-textarea" id="message" name="message" placeholder="Tell us about your idea, project, or question…" required></textarea>
+      </div>
+
+      <!-- Honeypot anti-spam -->
+      <input type="text" name="_gotcha" style="display:none">
+
+      <button type="submit" class="form-submit" id="submitBtn">Send message</button>
+      <p class="form-footer-note">We read every message. Usually reply within a few days.</p>
+    </form>
+
+    <div class="success-state" id="successState">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <div>
+        <h3>Message sent.</h3>
+        <p>Thanks for reaching out. We'll get back to you as soon as we can.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span>© 2026 Blue Proton Initiative</span>
+  <span>Dreams never freeze.</span>
+</footer>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Form submission with Formspree AJAX
+  const form = document.getElementById('contactForm');
+  const successState = document.getElementById('successState');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    submitBtn.textContent = 'Sending…';
+    submitBtn.disabled = true;
+
+    try {
+      const data = new FormData(form);
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        form.style.display = 'none';
+        successState.classList.add('visible');
+      } else {
+        submitBtn.textContent = 'Something went wrong — try again';
+        submitBtn.disabled = false;
+      }
+    } catch (err) {
+      submitBtn.textContent = 'Something went wrong — try again';
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>

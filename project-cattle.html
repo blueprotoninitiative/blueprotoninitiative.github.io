@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'><ellipse cx='40' cy='40' rx='36' ry='14' stroke='%231a6fd4' stroke-width='2.5' fill='none'/><ellipse cx='40' cy='40' rx='36' ry='14' stroke='%231a6fd4' stroke-width='2.5' fill='none' transform='rotate(60 40 40)'/><ellipse cx='40' cy='40' rx='36' ry='14' stroke='%231a6fd4' stroke-width='2.5' fill='none' transform='rotate(120 40 40)'/><circle cx='40' cy='40' r='6' fill='%231a6fd4'/></svg>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Edge Vision for Livestock — Blue Proton Initiative</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1a6fd4;
+    --text: #0a0a0a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --bg: #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 56px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    transition: padding 0.3s;
+  }
+  nav.scrolled { padding: 14px 56px; }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 15px; letter-spacing: -0.3px;
+    color: var(--text); text-decoration: none;
+  }
+  .nav-logo svg { width: 28px; height: 28px; color: var(--blue); flex-shrink: 0; }
+
+  .nav-back {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--muted); text-decoration: none;
+    transition: color 0.2s;
+    font-weight: 400;
+  }
+  .nav-back:hover { color: var(--text); }
+  .nav-back svg { width: 14px; height: 14px; }
+
+  /* ── HERO ── */
+  .project-hero {
+    padding: 160px 56px 100px;
+    max-width: 1240px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .project-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.1s forwards;
+  }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid var(--blue);
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  .eyebrow-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .project-hero h1 {
+    font-size: clamp(3rem, 7vw, 7rem);
+    font-weight: 700;
+    letter-spacing: -3.5px;
+    line-height: 0.95;
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.3s forwards;
+    max-width: 900px;
+  }
+
+  .project-hero-meta {
+    display: flex;
+    gap: 48px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+
+  .meta-item { display: flex; flex-direction: column; gap: 4px; }
+  .meta-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+  .meta-value { font-size: 15px; font-weight: 600; letter-spacing: -0.3px; }
+
+  .project-hero-desc {
+    font-size: 20px;
+    color: #374151;
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 640px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── HERO IMAGE ── */
+  .hero-image-strip {
+    width: 100%;
+    height: 520px;
+    overflow: hidden;
+    position: relative;
+    opacity: 0;
+    animation: fadeUp 1s 0.7s forwards;
+  }
+  .hero-image-strip img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+  }
+  .hero-image-strip::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 120px;
+    background: linear-gradient(to top, white, transparent);
+  }
+
+  /* placeholder for missing images */
+  .img-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #eef5ff 0%, #dce9fc 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .img-placeholder svg { width: 32px; height: 32px; opacity: 0.3; }
+
+  /* ── SECTIONS ── */
+  .page-section {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 100px 56px;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+
+  .section-headline {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -1.8px;
+    line-height: 1.05;
+    margin-bottom: 40px;
+  }
+
+  .section-divider { width: 100%; height: 1px; background: var(--border); }
+
+  /* ── HOW IT WORKS ── */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: 48px;
+  }
+
+  .step {
+    background: white;
+    padding: 44px 36px;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .step:hover { background: #fafafa; }
+
+  .step-number {
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -3px;
+    color: #f0f2f5;
+    line-height: 1;
+    margin-bottom: 20px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .step h3 { font-size: 16px; font-weight: 600; margin-bottom: 12px; letter-spacing: -0.4px; }
+  .step p { font-size: 14px; color: var(--muted); line-height: 1.65; font-weight: 300; }
+
+  .step-tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: var(--blue);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+
+  /* ── TECH CHALLENGE ── */
+  .challenge-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-top: 48px;
+    align-items: start;
+  }
+
+  .challenge-body {
+    font-size: 17px;
+    line-height: 1.85;
+    color: #374151;
+    font-weight: 300;
+  }
+  .challenge-body p + p { margin-top: 20px; }
+
+  .specs-card {
+    background: #f9fafb;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .specs-header {
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .spec-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 28px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    transition: background 0.15s;
+  }
+  .spec-row:last-child { border-bottom: none; }
+  .spec-row:hover { background: white; }
+
+  .spec-key { color: var(--muted); font-weight: 400; }
+  .spec-value { font-weight: 600; letter-spacing: -0.3px; }
+  .spec-value.good { color: #059669; }
+  .spec-value.warn { color: #d97706; }
+
+  /* ── HARDWARE ── */
+  .hardware-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .hw-card {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .hw-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.06); }
+
+  .hw-card-img {
+    height: 200px;
+    background: linear-gradient(135deg, #eef5ff 0%, #dce9fc 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .hw-card-img img { width: 100%; height: 100%; object-fit: cover; }
+
+  .hw-card-body { padding: 28px; }
+  .hw-card-label { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); font-weight: 600; margin-bottom: 10px; }
+  .hw-card-title { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 10px; }
+  .hw-card-desc { font-size: 14px; color: var(--muted); line-height: 1.65; font-weight: 300; }
+
+  /* ── FUTURE ── */
+  .future-section {
+    background: var(--text);
+    color: white;
+    padding: 100px 0;
+  }
+  .future-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 96px;
+    align-items: center;
+  }
+  .future-section .section-label { color: rgba(255,255,255,0.3); }
+  .future-section .section-headline { color: white; margin-bottom: 28px; }
+  .future-body { font-size: 17px; color: rgba(255,255,255,0.55); line-height: 1.8; font-weight: 300; }
+  .future-body p + p { margin-top: 18px; }
+
+  .future-quote {
+    border-left: 2px solid rgba(26,111,212,0.6);
+    padding-left: 32px;
+  }
+  .future-quote blockquote {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    color: white;
+    line-height: 1.4;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+  }
+  .future-quote cite {
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    font-style: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── CONTACT CTA ── */
+  .contact-cta {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 100px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 48px;
+  }
+
+  .cta-text h2 { font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 700; letter-spacing: -1.5px; margin-bottom: 12px; }
+  .cta-text p { font-size: 16px; color: var(--muted); font-weight: 300; line-height: 1.6; }
+
+  .cta-buttons { display: flex; gap: 14px; flex-shrink: 0; }
+
+  .btn-primary {
+    background: var(--text);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.2s;
+    white-space: nowrap;
+  }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, transform 0.2s;
+    white-space: nowrap;
+  }
+  .btn-secondary:hover { border-color: #9ca3af; transform: translateY(-1px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text);
+    color: rgba(255,255,255,0.25);
+    padding: 24px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 960px) {
+    nav { padding: 16px 24px; }
+    .project-hero { padding: 130px 24px 80px; }
+    .project-hero h1 { letter-spacing: -2px; }
+    .project-hero-meta { flex-wrap: wrap; gap: 28px; }
+    .page-section { padding: 80px 24px; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .challenge-grid { grid-template-columns: 1fr; gap: 48px; }
+    .hardware-layout { grid-template-columns: 1fr; }
+    .future-inner { grid-template-columns: 1fr; gap: 48px; padding: 0 24px; }
+    .contact-cta { flex-direction: column; align-items: flex-start; padding: 80px 24px; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+    .hero-image-strip { height: 320px; }
+  }
+  @media (max-width: 600px) {
+    .cta-buttons { flex-direction: column; width: 100%; }
+    .btn-primary, .btn-secondary { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5">
+      <ellipse cx="14" cy="14" rx="12" ry="5" transform="rotate(0 14 14)"/>
+      <ellipse cx="14" cy="14" rx="12" ry="5" transform="rotate(60 14 14)"/>
+      <ellipse cx="14" cy="14" rx="12" ry="5" transform="rotate(120 14 14)"/>
+      <circle cx="14" cy="14" r="2" fill="currentColor" stroke="none"/>
+    </svg>
+    Blue Proton
+  </a>
+  <a href="index.html#projects" class="nav-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    All projects
+  </a>
+</nav>
+
+<!-- HERO -->
+<div class="project-hero">
+  <div class="project-eyebrow">
+    <div class="status-badge">
+      <div class="status-dot"></div>
+      In Progress
+    </div>
+    <span class="eyebrow-label">Research Project — 2025</span>
+  </div>
+  <h1>Edge Vision for<br>Livestock Health</h1>
+  <div class="project-hero-meta">
+    <div class="meta-item">
+      <span class="meta-label">Domain</span>
+      <span class="meta-value">Precision Agriculture</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Hardware</span>
+      <span class="meta-value">Arduino UNO Q</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Model</span>
+      <span class="meta-value">YOLO V8 (custom)</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Cloud</span>
+      <span class="meta-value" style="color:#059669;">Zero dependency</span>
+    </div>
+  </div>
+  <p class="project-hero-desc">
+    An on-device computer vision system for real-time cattle identification, counting, and early illness detection. Built from scratch by three 17-year-olds — hardware, software, and models all in-house.
+  </p>
+</div>
+
+<!-- HERO IMAGE -->
+<div class="hero-image-strip">
+  <img src="assets/dsc00761.jpg" alt="Blue Proton — working on the project" 
+       onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.5\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg><span>Add your project photos here → assets/</span></div>'">
+</div>
+
+<div class="section-divider"></div>
+
+<!-- HOW IT WORKS -->
+<div class="page-section">
+  <p class="section-label reveal">The system</p>
+  <h2 class="section-headline reveal">How it works.</h2>
+
+  <div class="steps-grid reveal">
+    <div class="step">
+      <div class="step-number">01</div>
+      <span class="step-tag">Capture</span>
+      <h3>Image acquisition</h3>
+      <p>The system captures video frames from a camera mounted in the livestock environment. Designed to handle variable lighting, movement, and outdoor conditions through diverse training data.</p>
+    </div>
+    <div class="step">
+      <div class="step-number">02</div>
+      <span class="step-tag">Inference</span>
+      <h3>On-device AI</h3>
+      <p>A custom-trained YOLO V8 model runs directly on the Arduino UNO Q. Each frame is processed locally in real time — no network connection required, no data sent to the cloud.</p>
+    </div>
+    <div class="step">
+      <div class="step-number">03</div>
+      <span class="step-tag">Output</span>
+      <h3>Detection & alert</h3>
+      <p>The system identifies individual animals, tracks headcount, and flags potential health anomalies. Farmers get actionable information without needing to monitor manually.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- TECHNICAL CHALLENGE -->
+<div class="page-section">
+  <p class="section-label reveal">Technical challenge</p>
+  <h2 class="section-headline reveal">Real constraints,<br>real solutions.</h2>
+
+  <div class="challenge-grid">
+    <div class="challenge-body reveal">
+      <p>
+        The biggest challenge has been working within the hardware constraints of the UNO Q. RAM and CPU are the main bottlenecks — running a vision pipeline on a board with those limitations requires every component to be as lean as possible.
+      </p>
+      <p>
+        Our approach has been straightforward: test, optimize, test again. We have been continuously refining the software, cutting overhead where possible and reworking parts that are too resource-heavy. There is no shortcut — it takes time and patience.
+      </p>
+      <p>
+        On the model side, dataset composition is central to reliability. The more varied and representative the training data, the more robust the model becomes across real-world conditions — lighting changes, animal movement, weather. These are handled at the data level, not patched at inference time.
+      </p>
+      <p>
+        The whole system is housed in a custom 3D printed enclosure designed entirely in-house, built around our specific requirements rather than off-the-shelf solutions.
+      </p>
+    </div>
+    <div class="specs-card reveal" style="transition-delay:0.15s;">
+      <div class="specs-header">System specs</div>
+      <div class="spec-row">
+        <span class="spec-key">Processing</span>
+        <span class="spec-value">Arduino UNO Q (Linux)</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Model</span>
+        <span class="spec-value">YOLO V8 — custom trained</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Inference</span>
+        <span class="spec-value good">On-device, real-time</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Cloud dependency</span>
+        <span class="spec-value good">None</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Enclosure</span>
+        <span class="spec-value">Custom 3D printed</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Dataset</span>
+        <span class="spec-value">Curated in-house</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">RAM constraint</span>
+        <span class="spec-value warn">Active optimization</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Status</span>
+        <span class="spec-value warn">In progress</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- HARDWARE -->
+<div class="page-section">
+  <p class="section-label reveal">Hardware</p>
+  <h2 class="section-headline reveal">Built for the field.</h2>
+
+  <div class="hardware-layout reveal">
+    <div class="hw-card">
+      <div class="hw-card-img">
+        <!-- Replace src with your Arduino photo when available -->
+        <img src="assets/arduino.jpg" alt="Arduino UNO Q"
+             onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.5\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg><span>Add Arduino photo → assets/arduino.jpg</span></div>'">
+      </div>
+      <div class="hw-card-body">
+        <p class="hw-card-label">Core processor</p>
+        <h3 class="hw-card-title">Arduino UNO Q</h3>
+        <p class="hw-card-desc">The central board everything runs through. Running Linux on a compact, affordable platform makes field deployment realistic without the cost and bulk of traditional edge compute hardware. Limited RAM is the main constraint we optimize around.</p>
+      </div>
+    </div>
+    <div class="hw-card">
+      <div class="hw-card-img">
+        <!-- Replace src with your enclosure photo when available -->
+        <img src="assets/enclosure.jpg" alt="Custom 3D printed enclosure"
+             onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.5\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg><span>Add enclosure photo → assets/enclosure.jpg</span></div>'">
+      </div>
+      <div class="hw-card-body">
+        <p class="hw-card-label">Custom enclosure</p>
+        <h3 class="hw-card-title">In-house CAD Design</h3>
+        <p class="hw-card-desc">The system lives in a custom 3D printed enclosure designed entirely by us — not an off-the-shelf solution. Every dimension is built around the specific hardware layout and field requirements of the project.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FUTURE -->
+<div class="future-section">
+  <div class="future-inner">
+    <div>
+      <p class="section-label reveal">Looking ahead</p>
+      <h2 class="section-headline reveal">What comes next.</h2>
+      <div class="future-body reveal">
+        <p>
+          The UNO Q has gotten us far, but the constraints are real. The Arduino Ventuno Q — with 16 GB of RAM, a dedicated AI accelerator, and substantially better specs — would change things significantly. The kind of inference we currently optimize around would simply not be a problem anymore.
+        </p>
+        <p>
+          Beyond hardware, we are building toward a system that could genuinely change how small and medium farms operate: automated monitoring running silently in the background, flagging issues before they become costly problems.
+        </p>
+        <p>
+          We are 17. We have a math test tomorrow. And we are going to keep building anyway.
+        </p>
+      </div>
+    </div>
+    <div class="future-quote reveal" style="transition-delay:0.2s;">
+      <blockquote>
+        "Three months in, we have learned more from actually building this than we could have from any classroom."
+      </blockquote>
+      <cite>— Blue Proton Initiative</cite>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT CTA -->
+<div class="contact-cta reveal">
+  <div class="cta-text">
+    <h2>Interested in the project?</h2>
+    <p>We're open to collaborations, partnerships, and conversations<br>with people who share our drive to build real things.</p>
+  </div>
+  <div class="cta-buttons">
+    <a href="contact.html" class="btn-primary">Get in touch</a>
+    <a href="index.html" class="btn-secondary">Back to home</a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Blue Proton Initiative</span>
+  <span>Dreams never freeze.</span>
+</footer>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

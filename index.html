@@ -471,7 +471,25 @@
   }
  
   /* ── TEAM ── */
-  #team .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 56px; }
+  .team-group { margin-top: 56px; }
+  .team-group-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--text);
+    padding-bottom: 14px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    list-style: none;
+  }
+  .team-grid > li:nth-child(4n+2) { transition-delay: 0.1s; }
+  .team-grid > li:nth-child(4n+3) { transition-delay: 0.2s; }
+  .team-grid > li:nth-child(4n+4) { transition-delay: 0.3s; }
  
   .team-member {
     padding: 36px 28px;
@@ -558,13 +576,13 @@
     .project-card { grid-template-columns: 1fr; }
     .project-card.reversed { direction: ltr; }
     .project-visual { min-height: 260px; }
-    #team .team-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .team-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
     .stats-bar { grid-template-columns: 1fr 1fr; }
     footer { flex-direction: column; gap: 8px; text-align: center; }
   }
   @media (max-width: 600px) {
     h1 { letter-spacing: -2.5px; }
-    #team .team-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr; }
     .nav-links { display: none; }
     .stats-bar { grid-template-columns: 1fr; }
     .hero-buttons { flex-direction: column; align-items: center; }
@@ -761,33 +779,78 @@
 <!-- TEAM -->
 <section id="team">
   <p class="section-label reveal">The team</p>
-  <h2 class="section-headline reveal">Three 17-year-olds from Italy,<br>redefining independent research.</h2>
- 
-  <div class="team-grid">
-    <div class="team-member reveal">
-      <div class="member-avatar avatar-blue">PP</div>
-      <p class="member-role">Original Founder</p>
-      <h3 class="member-name">Pietro Maria<br>Piazza</h3>
-      <p class="member-desc">Research & Software Engineering. The architect behind the vision and core technical systems. Drives the direction of the entire initiative.</p>
-    </div>
-    <div class="team-member reveal" style="transition-delay:0.1s">
-      <div class="member-avatar avatar-indigo">DS</div>
-      <p class="member-role">Co-Founder</p>
-      <h3 class="member-name">Davide<br>Santucci</h3>
-      <p class="member-desc">Research & CAD Design. Translates complex requirements into precise physical and digital structures. Handles all in-house hardware design.</p>
-    </div>
-    <div class="team-member reveal" style="transition-delay:0.2s">
-      <div class="member-avatar avatar-cyan">AN</div>
-      <p class="member-role">Co-Founder</p>
-      <h3 class="member-name">Alessandro<br>Nesci</h3>
-      <p class="member-desc">Research & AI Training. Specializes in YOLO model training, neural network optimization, and dataset curation for real-world deployment.</p>
-    </div>
-    <div class="team-member reveal" style="transition-delay:0.3s">
-      <div class="member-avatar avatar-violet">MA</div>
-      <p class="member-role">Coder & Cybersecurity</p>
-      <h3 class="member-name">Matteo<br>Angiolillo</h3>
-      <p class="member-desc">Software development and cybersecurity. Keeping our systems fast, reliable, and secure. The last line of defence on every deployment.</p>
-    </div>
+  <h2 class="section-headline reveal">Young researchers and creators from Italy,<br>redefining independent research.</h2>
+
+  <div class="team-group" role="group" aria-labelledby="team-core">
+    <h3 class="team-group-title reveal" id="team-core">Core team</h3>
+    <ul class="team-grid">
+      <li class="team-member reveal">
+        <div class="member-avatar avatar-blue" aria-hidden="true">PP</div>
+        <p class="member-role">Original Founder</p>
+        <h4 class="member-name">Pietro Maria<br>Piazza</h4>
+        <p class="member-desc">AI Models & Vision. Develops and trains the AI models behind our projects, and sets the overall vision and direction of the initiative.</p>
+      </li>
+      <li class="team-member reveal">
+        <div class="member-avatar avatar-indigo" aria-hidden="true">DS</div>
+        <p class="member-role">Co-Founder</p>
+        <h4 class="member-name">Davide<br>Santucci</h4>
+        <p class="member-desc">Research & CAD Design. Translates complex requirements into precise physical and digital structures. Handles all in-house hardware design.</p>
+      </li>
+      <li class="team-member reveal">
+        <div class="member-avatar avatar-cyan" aria-hidden="true">AN</div>
+        <p class="member-role">Co-Founder</p>
+        <h4 class="member-name">Alessandro<br>Nesci</h4>
+        <p class="member-desc">Management & Operations. Takes care of the organization, coordination, and administration of the initiative, keeping people and plans aligned.</p>
+      </li>
+      <li class="team-member reveal">
+        <div class="member-avatar avatar-violet" aria-hidden="true">MA</div>
+        <p class="member-role">Software Engineer & Cybersecurity</p>
+        <h4 class="member-name">Matteo<br>Angiolillo</h4>
+        <p class="member-desc">Software Engineering & Cybersecurity. Designed and built the project's entire software architecture, and keeps it fast, reliable, and secure.</p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="team-group" role="group" aria-labelledby="team-social">
+    <h3 class="team-group-title reveal" id="team-social">Social media content</h3>
+    <ul class="team-grid">
+      <li class="team-member reveal">
+        <div class="member-avatar avatar-blue" aria-hidden="true">CV</div>
+        <p class="member-role">Content Team</p>
+        <h4 class="member-name">Camilla<br>Valli</h4>
+        <p class="member-desc">Social media content. Creates posts and visuals that share the initiative's work with our community on social media.</p>
+      </li>
+      <li class="team-member reveal">
+        <div class="member-avatar avatar-indigo" aria-hidden="true">FB</div>
+        <p class="member-role">Content Team</p>
+        <h4 class="member-name">Federico<br>Biondi</h4>
+        <p class="member-desc">Social media content. Helps plan and produce content for our social channels, keeping followers up to date on what we build.</p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="team-group" role="group" aria-labelledby="team-youtube">
+    <h3 class="team-group-title reveal" id="team-youtube">YouTube content</h3>
+    <ul class="team-grid">
+      <li class="team-member reveal">
+        <div class="member-avatar avatar-cyan" aria-hidden="true">YP</div>
+        <p class="member-role">Content Team</p>
+        <h4 class="member-name">Yuri<br>Pambianco</h4>
+        <p class="member-desc">YouTube content. Creates videos that document the initiative's projects and progress for our YouTube channel.</p>
+      </li>
+      <li class="team-member reveal">
+        <div class="member-avatar avatar-violet" aria-hidden="true">EB</div>
+        <p class="member-role">Content Team</p>
+        <h4 class="member-name">Edoardo<br>Bosi</h4>
+        <p class="member-desc">YouTube content. Helps produce videos that explain our research and make it accessible to a wider audience.</p>
+      </li>
+      <li class="team-member reveal">
+        <div class="member-avatar avatar-blue" aria-hidden="true">RC</div>
+        <p class="member-role">Content Team</p>
+        <h4 class="member-name">Riccardo<br>Calabró</h4>
+        <p class="member-desc">YouTube content. Contributes to preparing and producing the videos that bring our work to viewers on YouTube.</p>
+      </li>
+    </ul>
   </div>
 </section>
  

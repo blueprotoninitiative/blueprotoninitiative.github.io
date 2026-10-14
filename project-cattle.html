@@ -1,9 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'><ellipse cx='40' cy='40' rx='36' ry='14' stroke='%231a6fd4' stroke-width='2.5' fill='none'/><ellipse cx='40' cy='40' rx='36' ry='14' stroke='%231a6fd4' stroke-width='2.5' fill='none' transform='rotate(60 40 40)'/><ellipse cx='40' cy='40' rx='36' ry='14' stroke='%231a6fd4' stroke-width='2.5' fill='none' transform='rotate(120 40 40)'/><circle cx='40' cy='40' r='6' fill='%231a6fd4'/></svg>">
+<head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Edge Vision for Livestock — Blue Proton Initiative</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edge Vision for Livestock Health — Blue Proton Initiative</title>
+<meta name="description" content="An on-device computer vision system for real-time cattle identification, counting and early illness detection, running a custom YOLO V8 model on Arduino UNO Q with no cloud.">
+<link rel="canonical" href="https://blueprotoninitiative.com/project-cattle">
+<meta name="theme-color" content="#1a6fd4">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Blue Proton Initiative">
+<meta property="og:title" content="Edge Vision for Livestock Health — Blue Proton Initiative">
+<meta property="og:description" content="An on-device computer vision system for real-time cattle identification, counting and early illness detection, running a custom YOLO V8 model on Arduino UNO Q with no cloud.">
+<meta property="og:url" content="https://blueprotoninitiative.com/project-cattle">
+<meta property="og:image" content="https://blueprotoninitiative.com/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A Blue Proton team member designing a 3D enclosure in CAD on a tablet">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Edge Vision for Livestock Health — Blue Proton Initiative">
+<meta name="twitter:description" content="An on-device computer vision system for real-time cattle identification, counting and early illness detection, running a custom YOLO V8 model on Arduino UNO Q with no cloud.">
+<meta name="twitter:image" content="https://blueprotoninitiative.com/assets/og-image.jpg">
+<meta name="twitter:image:alt" content="A Blue Proton team member designing a 3D enclosure in CAD on a tablet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -288,8 +311,8 @@
 
   .spec-key { color: var(--muted); font-weight: 400; }
   .spec-value { font-weight: 600; letter-spacing: -0.3px; }
-  .spec-value.good { color: #059669; }
-  .spec-value.warn { color: #d97706; }
+  .spec-value.good { color: #047857; }
+  .spec-value.warn { color: #b45309; }
 
   /* ── HARDWARE ── */
   .hardware-layout {
@@ -338,9 +361,9 @@
     gap: 96px;
     align-items: center;
   }
-  .future-section .section-label { color: rgba(255,255,255,0.3); }
+  .future-section .section-label { color: rgba(255,255,255,0.6); }
   .future-section .section-headline { color: white; margin-bottom: 28px; }
-  .future-body { font-size: 17px; color: rgba(255,255,255,0.55); line-height: 1.8; font-weight: 300; }
+  .future-body { font-size: 17px; color: rgba(255,255,255,0.7); line-height: 1.8; font-weight: 300; }
   .future-body p + p { margin-top: 18px; }
 
   .future-quote {
@@ -358,7 +381,7 @@
   }
   .future-quote cite {
     font-size: 13px;
-    color: rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.6);
     font-style: normal;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -410,7 +433,7 @@
   /* ── FOOTER ── */
   footer {
     background: var(--text);
-    color: rgba(255,255,255,0.25);
+    color: rgba(255,255,255,0.6);
     padding: 24px 56px;
     display: flex;
     justify-content: space-between;
@@ -447,13 +470,42 @@
     .cta-buttons { flex-direction: column; width: 100%; }
     .btn-primary, .btn-secondary { text-align: center; }
   }
+
+  /* ── ACCESSIBILITY ── */
+  .skip-link {
+    position: absolute;
+    left: 16px;
+    top: -60px;
+    z-index: 200;
+    background: var(--text);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    text-decoration: none;
+  }
+  .skip-link:focus { top: 16px; }
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+  }
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <!-- NAV -->
 <nav id="navbar">
-  <a href="index.html" class="nav-logo">
+  <a href="/" class="nav-logo">
     <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5">
       <ellipse cx="14" cy="14" rx="12" ry="5" transform="rotate(0 14 14)"/>
       <ellipse cx="14" cy="14" rx="12" ry="5" transform="rotate(60 14 14)"/>
@@ -462,11 +514,13 @@
     </svg>
     Blue Proton
   </a>
-  <a href="index.html#projects" class="nav-back">
+  <a href="/#projects" class="nav-back">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
     All projects
   </a>
 </nav>
+
+<main id="main">
 
 <!-- HERO -->
 <div class="project-hero">
@@ -493,7 +547,7 @@
     </div>
     <div class="meta-item">
       <span class="meta-label">Cloud</span>
-      <span class="meta-value" style="color:#059669;">Zero dependency</span>
+      <span class="meta-value" style="color:#047857;">Zero dependency</span>
     </div>
   </div>
   <p class="project-hero-desc">
@@ -503,7 +557,7 @@
 
 <!-- HERO IMAGE -->
 <div class="hero-image-strip">
-  <img src="assets/DSC00771.JPG" alt="Blue Proton — working on the project" 
+  <img src="assets/DSC00771.JPG" alt="Close-up of the custom 3D printed enclosure with its camera module" 
        onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.5\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg><span>Add your project photos here → assets/</span></div>'">
 </div>
 
@@ -607,7 +661,7 @@
     <div class="hw-card">
       <div class="hw-card-img">
         <!-- Replace src with your Arduino photo when available -->
-        <img src="assets/DSC00751.JPG" alt="Arduino UNO Q"
+        <img src="assets/DSC00751.JPG" alt="Designing the enclosure in CAD on a tablet, with a circuit board on the table"
              onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.5\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg><span>Add Arduino photo → assets/DSC00751.JPG</span></div>'">
       </div>
       <div class="hw-card-body">
@@ -619,7 +673,7 @@
     <div class="hw-card">
       <div class="hw-card-img">
         <!-- Replace src with your enclosure photo when available -->
-        <img src="assets/DSC00754.JPG" alt="Custom 3D printed enclosure"
+        <img src="assets/DSC00754.JPG" alt="CAD model of the custom enclosure on a tablet screen"
              onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.5\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'3\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><path d=\'M21 15l-5-5L5 21\'/></svg><span>Add enclosure photo → assets/DSC00754.JPG</span></div>'">
       </div>
       <div class="hw-card-body">
@@ -665,10 +719,12 @@
     <p>We're open to collaborations, partnerships, and conversations<br>with people who share our drive to build real things.</p>
   </div>
   <div class="cta-buttons">
-    <a href="contact.html" class="btn-primary">Get in touch</a>
-    <a href="index.html" class="btn-secondary">Back to home</a>
+    <a href="/contact" class="btn-primary">Get in touch</a>
+    <a href="/" class="btn-secondary">Back to home</a>
   </div>
 </div>
+
+</main>
 
 <footer>
   <span>© 2026 Blue Proton Initiative</span>

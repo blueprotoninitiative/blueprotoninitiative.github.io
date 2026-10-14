@@ -1,0 +1,6 @@
+# Never upload these, even if they end up in public/ by mistake
+.DS_Store
+*.md
+.git
+.wrangler
+node_modules

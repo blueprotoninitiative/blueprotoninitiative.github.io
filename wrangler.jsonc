@@ -1,0 +1,13 @@
+// Cloudflare Workers config for blueprotoninitiative.com.
+// Only the ./public folder is uploaded; nothing else in this repo is published.
+{
+  "name": "blueproton",
+  "compatibility_date": "2026-10-13",
+  "assets": {
+    "directory": "./public",
+    // Serve /404.html with a 404 status for unknown paths
+    "not_found_handling": "404-page",
+    // /contact.html -> /contact, /index.html -> /
+    "html_handling": "auto-trailing-slash"
+  }
+}

@@ -1,0 +1,24 @@
+# Cloudflare static-asset headers (https://developers.cloudflare.com/workers/static-assets/headers/)
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Cross-Origin-Opener-Policy: same-origin
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formspree.io https://cloudflareinsights.com; form-action 'self' https://formspree.io; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests
+
+# Images and icons: filenames are not content-hashed, so cache for 30 days
+# rather than forever. Rename a file (e.g. -v2) if you replace its content.
+/assets/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+/favicon.ico
+  Cache-Control: public, max-age=2592000
+
+# CSS/JS change together with the HTML, so keep the cache short.
+/css/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/js/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400

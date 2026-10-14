@@ -1,0 +1,15 @@
+/* 404 page */
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 24px;
+}
+.error-logo { width: 64px; height: 64px; margin-bottom: 32px; }
+.error-code { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--blue); font-weight: 600; margin-bottom: 20px; }
+h1 { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 700; letter-spacing: -2px; line-height: 1; margin-bottom: 20px; }
+.error-text { font-size: 17px; color: var(--muted); font-weight: 300; line-height: 1.6; max-width: 420px; margin: 0 auto 36px; }

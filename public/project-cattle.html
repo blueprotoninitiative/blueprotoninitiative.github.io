@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edge Vision for Livestock Health — Blue Proton Initiative</title>
+<meta name="description" content="An on-device computer vision system for real-time cattle identification, counting and early illness detection, running a custom YOLO V8 model on Arduino UNO Q with no cloud.">
+<link rel="canonical" href="https://blueprotoninitiative.com/project-cattle">
+<meta name="theme-color" content="#1a6fd4">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Blue Proton Initiative">
+<meta property="og:title" content="Edge Vision for Livestock Health — Blue Proton Initiative">
+<meta property="og:description" content="An on-device computer vision system for real-time cattle identification, counting and early illness detection, running a custom YOLO V8 model on Arduino UNO Q with no cloud.">
+<meta property="og:url" content="https://blueprotoninitiative.com/project-cattle">
+<meta property="og:image" content="https://blueprotoninitiative.com/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A Blue Proton team member designing a 3D enclosure in CAD on a tablet">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Edge Vision for Livestock Health — Blue Proton Initiative">
+<meta name="twitter:description" content="An on-device computer vision system for real-time cattle identification, counting and early illness detection, running a custom YOLO V8 model on Arduino UNO Q with no cloud.">
+<meta name="twitter:image" content="https://blueprotoninitiative.com/assets/og-image.jpg">
+<meta name="twitter:image:alt" content="A Blue Proton team member designing a 3D enclosure in CAD on a tablet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/project.css">
+<script src="/js/main.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="/" class="nav-logo">
+    <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <ellipse cx="14" cy="14" rx="12" ry="5" transform="rotate(0 14 14)"/>
+      <ellipse cx="14" cy="14" rx="12" ry="5" transform="rotate(60 14 14)"/>
+      <ellipse cx="14" cy="14" rx="12" ry="5" transform="rotate(120 14 14)"/>
+      <circle cx="14" cy="14" r="2" fill="currentColor" stroke="none"/>
+    </svg>
+    Blue Proton
+  </a>
+  <a href="/#projects" class="nav-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    All projects
+  </a>
+</nav>
+
+<main id="main">
+
+<!-- HERO -->
+<div class="project-hero">
+  <div class="project-eyebrow">
+    <div class="status-badge">
+      <div class="status-dot"></div>
+      In Progress
+    </div>
+    <span class="eyebrow-label">Research Project — 2025</span>
+  </div>
+  <h1>Edge Vision for<br>Livestock Health</h1>
+  <div class="project-hero-meta">
+    <div class="meta-item">
+      <span class="meta-label">Domain</span>
+      <span class="meta-value">Precision Agriculture</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Hardware</span>
+      <span class="meta-value">Arduino UNO Q</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Model</span>
+      <span class="meta-value">YOLO V8 (custom)</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Cloud</span>
+      <span class="meta-value good">Zero dependency</span>
+    </div>
+  </div>
+  <p class="project-hero-desc">
+    An on-device computer vision system for real-time cattle identification, counting, and early illness detection. Built from scratch by an independent research team from Italy — hardware, software, and models all in-house.
+  </p>
+</div>
+
+<!-- HERO IMAGE -->
+<div class="hero-image-strip">
+  <img src="/assets/img/enclosure-camera-1280.webp"
+       srcset="/assets/img/enclosure-camera-768.webp 768w, /assets/img/enclosure-camera-1280.webp 1280w, /assets/img/enclosure-camera-1920.webp 1920w"
+       sizes="100vw" width="1280" height="853" fetchpriority="high" decoding="async"
+       alt="Close-up of the custom 3D printed enclosure with its camera module">
+</div>
+
+<div class="section-divider"></div>
+
+<!-- HOW IT WORKS -->
+<div class="page-section">
+  <p class="section-label reveal">The system</p>
+  <h2 class="section-headline reveal">How it works.</h2>
+
+  <div class="steps-grid reveal">
+    <div class="step">
+      <div class="step-number">01</div>
+      <span class="step-tag">Capture</span>
+      <h3>Image acquisition</h3>
+      <p>The system captures video frames from a camera mounted in the livestock environment. Designed to handle variable lighting, movement, and outdoor conditions through diverse training data.</p>
+    </div>
+    <div class="step">
+      <div class="step-number">02</div>
+      <span class="step-tag">Inference</span>
+      <h3>On-device AI</h3>
+      <p>A custom-trained YOLO V8 model runs directly on the Arduino UNO Q. Each frame is processed locally in real time — no network connection required, no data sent to the cloud.</p>
+    </div>
+    <div class="step">
+      <div class="step-number">03</div>
+      <span class="step-tag">Output</span>
+      <h3>Detection & alert</h3>
+      <p>The system identifies individual animals, tracks headcount, and flags potential health anomalies. Farmers get actionable information without needing to monitor manually.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- TECHNICAL CHALLENGE -->
+<div class="page-section">
+  <p class="section-label reveal">Technical challenge</p>
+  <h2 class="section-headline reveal">Real constraints,<br>real solutions.</h2>
+
+  <div class="challenge-grid">
+    <div class="challenge-body reveal">
+      <p>
+        The biggest challenge has been working within the hardware constraints of the UNO Q. RAM and CPU are the main bottlenecks — running a vision pipeline on a board with those limitations requires every component to be as lean as possible.
+      </p>
+      <p>
+        Our approach has been straightforward: test, optimize, test again. We have been continuously refining the software, cutting overhead where possible and reworking parts that are too resource-heavy. There is no shortcut — it takes time and patience.
+      </p>
+      <p>
+        On the model side, dataset composition is central to reliability. The more varied and representative the training data, the more robust the model becomes across real-world conditions — lighting changes, animal movement, weather. These are handled at the data level, not patched at inference time.
+      </p>
+      <p>
+        The whole system is housed in a custom 3D printed enclosure designed entirely in-house, built around our specific requirements rather than off-the-shelf solutions.
+      </p>
+    </div>
+    <div class="specs-card reveal delay-15">
+      <div class="specs-header">System specs</div>
+      <div class="spec-row">
+        <span class="spec-key">Processing</span>
+        <span class="spec-value">Arduino UNO Q (Linux)</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Model</span>
+        <span class="spec-value">YOLO V8 — custom trained</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Inference</span>
+        <span class="spec-value good">On-device, real-time</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Cloud dependency</span>
+        <span class="spec-value good">None</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Enclosure</span>
+        <span class="spec-value">Custom 3D printed</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Dataset</span>
+        <span class="spec-value">Curated in-house</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">RAM constraint</span>
+        <span class="spec-value warn">Active optimization</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Status</span>
+        <span class="spec-value warn">In progress</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- HARDWARE -->
+<div class="page-section">
+  <p class="section-label reveal">Hardware</p>
+  <h2 class="section-headline reveal">Built for the field.</h2>
+
+  <div class="hardware-layout reveal">
+    <div class="hw-card">
+      <div class="hw-card-img">
+        <img src="/assets/img/cad-tablet-board-640.webp"
+             srcset="/assets/img/cad-tablet-board-640.webp 640w, /assets/img/cad-tablet-board-1200.webp 1200w"
+             sizes="(max-width: 960px) calc(100vw - 48px), 600px"
+             width="640" height="360" loading="lazy" decoding="async"
+             alt="Close-up of a hand editing a CAD design on a tablet with a stylus">
+      </div>
+      <div class="hw-card-body">
+        <p class="hw-card-label">Core processor</p>
+        <h3 class="hw-card-title">Arduino UNO Q</h3>
+        <p class="hw-card-desc">The central board everything runs through. Running Linux on a compact, affordable platform makes field deployment realistic without the cost and bulk of traditional edge compute hardware. Limited RAM is the main constraint we optimize around.</p>
+      </div>
+    </div>
+    <div class="hw-card">
+      <div class="hw-card-img">
+        <img src="/assets/img/cad-enclosure-model-640.webp"
+             srcset="/assets/img/cad-enclosure-model-640.webp 640w, /assets/img/cad-enclosure-model-1200.webp 1200w"
+             sizes="(max-width: 960px) calc(100vw - 48px), 600px"
+             width="640" height="360" loading="lazy" decoding="async"
+             alt="CAD model of the custom enclosure on a tablet screen">
+      </div>
+      <div class="hw-card-body">
+        <p class="hw-card-label">Custom enclosure</p>
+        <h3 class="hw-card-title">In-house CAD Design</h3>
+        <p class="hw-card-desc">The system lives in a custom 3D printed enclosure designed entirely by us — not an off-the-shelf solution. Every dimension is built around the specific hardware layout and field requirements of the project.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FUTURE -->
+<div class="future-section">
+  <div class="future-inner">
+    <div>
+      <p class="section-label reveal">Looking ahead</p>
+      <h2 class="section-headline reveal">What comes next.</h2>
+      <div class="future-body reveal">
+        <p>
+          The UNO Q has gotten us far, but the constraints are real. The Arduino Ventuno Q — with 16 GB of RAM, a dedicated AI accelerator, and substantially better specs — would change things significantly. The kind of inference we currently optimize around would simply not be a problem anymore.
+        </p>
+        <p>
+          Beyond hardware, we are building toward a system that could genuinely change how small and medium farms operate: automated monitoring running silently in the background, flagging issues before they become costly problems.
+        </p>
+        <p>
+          We are students. We have a math test tomorrow. And we are going to keep building anyway.
+        </p>
+      </div>
+    </div>
+    <div class="future-quote reveal delay-20">
+      <blockquote>
+        "Three months in, we have learned more from actually building this than we could have from any classroom."
+      </blockquote>
+      <cite>— Blue Proton Initiative</cite>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT CTA -->
+<div class="contact-cta reveal">
+  <div class="cta-text">
+    <h2>Interested in the project?</h2>
+    <p>We're open to collaborations, partnerships, and conversations<br>with people who share our drive to build real things.</p>
+  </div>
+  <div class="cta-buttons">
+    <a href="/contact" class="btn-primary">Get in touch</a>
+    <a href="/" class="btn-secondary">Back to home</a>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <span>© 2026 Blue Proton Initiative</span>
+  <span>Dreams never freeze.</span>
+</footer>
+
+</body>
+</html>

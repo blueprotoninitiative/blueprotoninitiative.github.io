@@ -1,21 +1,37 @@
-// Home page: atom logo parallax, orbiting dot and animated stat counters.
+// Home page: atom logo parallax/fade, orbiting dot and animated stat counters.
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Atom parallax + rotate + fade
+// Atom: gentle parallax + fade as the hero scrolls away (no rotation)
 const atomWrapper = document.querySelector('.atom-wrapper');
-const atom = document.getElementById('atomLogo');
+const nav = document.querySelector('nav');
+const ATOM_MAX_SHIFT = 40; // px, less than the 50px gap to the eyebrow
 let atomVisible = true;
-function updateAtom() {
-  const s = window.scrollY;
-  const fade = Math.max(0, 1 - s / (window.innerHeight * 0.55));
-  atomVisible = fade > 0;
-  atomWrapper.style.top = (120 + s * 0.75) + 'px';
-  atomWrapper.style.opacity = fade;
-  atom.style.transform = `rotate(${s * 0.4}deg)`;
+let fadeEnd = 1;
+let ticking = false;
+
+function measureAtom() {
+  // Document position of the logo (offsetTop ignores transforms)
+  const atomTop = atomWrapper.offsetTop + atomWrapper.offsetParent.offsetTop;
+  // Fully faded before its top edge can reach the navbar
+  fadeEnd = Math.max(1, atomTop - nav.offsetHeight - 8);
 }
-window.addEventListener('scroll', updateAtom, { passive: true });
-updateAtom();
+function updateAtom() {
+  ticking = false;
+  const p = Math.min(1, Math.max(0, window.scrollY / fadeEnd));
+  atomVisible = p < 1;
+  atomWrapper.style.transform = `translateY(${p * ATOM_MAX_SHIFT}px)`;
+  atomWrapper.style.opacity = 1 - p;
+}
+if (!reduceMotion) {
+  measureAtom();
+  updateAtom();
+  window.addEventListener('scroll', () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(updateAtom); }
+  }, { passive: true });
+  window.addEventListener('resize', () => { measureAtom(); updateAtom(); }, { passive: true });
+  window.addEventListener('load', () => { measureAtom(); updateAtom(); });
+}
 
 // Orbiting dot (skipped while the atom is faded out)
 const orbitDot = document.getElementById('orbitDot');

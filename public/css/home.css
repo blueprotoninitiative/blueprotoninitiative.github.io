@@ -54,16 +54,11 @@ nav.scrolled { border-bottom-color: var(--border); }
 }
 
 .atom-wrapper {
-  position: fixed;
-  top: 120px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
+  margin-bottom: 50px;
   pointer-events: none;
   will-change: transform, opacity;
 }
-.atom-svg { width: 80px; height: 80px; }
-.atom-spacer { height: 130px; }
+.atom-svg { display: block; width: 80px; height: 80px; }
 
 .hero-eyebrow {
   font-size: 11px;
@@ -120,8 +115,10 @@ h1 {
 .scroll-hint {
   position: absolute;
   bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  width: max-content;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -129,6 +126,7 @@ h1 {
   color: var(--muted);
   font-size: 10px;
   letter-spacing: 3px;
+  text-indent: 3px; /* balances the 3px of letter-spacing after the last letter */
   text-transform: uppercase;
   opacity: 0;
   animation: fadeUp 0.8s 1.4s forwards;
